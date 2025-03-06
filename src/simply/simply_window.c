@@ -140,6 +140,24 @@ static void prv_update_layer_placement(SimplyWindow *self, GRect *frame_out) {
     }
   }
 
+  if (frame.size.w <= 0 || frame.size.h <= 0) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Invalid frame size: width = %d, height = %d", frame.size.w, frame.size.h);
+    return;
+  }
+
+  // check origin size
+  if (frame.origin.x <= 0 && frame.origin.y <= 0) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Invalid frame origin: x = %d, y = %d", frame.origin.x, frame.origin.y);
+    return;
+  }
+
+  if (!main_layer) {
+    APP_LOG(APP_LOG_LEVEL_ERROR, "Main layer is NULL");
+    return;
+  }
+  
+  
+
   layer_set_frame(main_layer, frame);
   if (frame_out) {
     *frame_out = frame;
